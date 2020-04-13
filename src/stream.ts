@@ -19,7 +19,10 @@ export class WebSocketStream extends AbstractStream<
 
   async pipe(options: WebsocketControllerOptions): Promise<WebSocketStream> {
     return new WebSocketStream(
-      this.observable.pipe(this.namespacePipeFilter(options)),
+      this.observable.pipe(
+        this.namespacePipeFilter(options),
+        this.typePipeFilter(options),
+      ),
     );
   }
 
@@ -27,6 +30,15 @@ export class WebSocketStream extends AbstractStream<
     return filter(
       (event: WebsocketEvent<T>) =>
         !(options.namespace && options.namespace !== event.namespace),
+    );
+  }
+
+  typePipeFilter<T extends {}>(
+    options: WebsocketControllerOptions | WebSocketControllerHandlerOptions<T>,
+  ) {
+    return filter(
+      (event: WebsocketEvent<T>) =>
+        !(options.type && options.type !== event.type),
     );
   }
 
@@ -67,7 +79,11 @@ export class WebSocketStream extends AbstractStream<
     handler: AsyncResolver<WebsocketEvent<T>, R>,
   ): Promise<void> {
     this.observable
-      .pipe(this.dataMatchFilter(options), this.dataOverFilter(options))
+      .pipe(
+        this.typePipeFilter(options),
+        this.dataMatchFilter(options),
+        this.dataOverFilter(options),
+      )
       .subscribe({
         next: async (event) => {
           try {
