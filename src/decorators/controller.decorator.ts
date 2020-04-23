@@ -1,8 +1,5 @@
 import { Class } from 'utility-types';
-import {
-  ConstructorDecorator,
-  setControllerContextOptions,
-} from '@fireless/common';
+import { KlassDecorator, setControllerContextOptions } from '@fireless/common';
 import {
   WebSocketControllerHandlerOptions,
   WebsocketControllerOptions,
@@ -11,10 +8,10 @@ import {
 
 export function Controller<D extends {}>(
   namespace: WebsocketControllerOptions['namespace'],
-): ConstructorDecorator;
+): KlassDecorator;
 export function Controller<D extends {}>(
   options: WebsocketControllerOptions,
-): ConstructorDecorator;
+): KlassDecorator;
 export function Controller<D extends {}>(
   namespaceOrOptions:
     | WebsocketControllerOptions

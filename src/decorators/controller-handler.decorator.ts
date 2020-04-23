@@ -1,6 +1,6 @@
 import { Class } from 'utility-types';
 import {
-  HandlerDecorator,
+  KlassMethodDecorator,
   setControllerHandlerContextOptions,
 } from '@fireless/common';
 import {
@@ -11,10 +11,10 @@ import {
 
 export function Handler<D extends {}>(
   type: WebSocketControllerHandlerOptions<D>['type'],
-): HandlerDecorator;
+): KlassMethodDecorator;
 export function Handler<D extends {}>(
   options: WebSocketControllerHandlerOptions<D>,
-): HandlerDecorator;
+): KlassMethodDecorator;
 export function Handler<D extends {}>(
   typeOrOptions:
     | WebSocketControllerHandlerOptions<D>

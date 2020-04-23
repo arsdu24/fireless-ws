@@ -1,6 +1,6 @@
 {
   "name": "@fireless/ws",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "FireLess WebSocket provider package",
   "main": "index.js",
   "files": [
